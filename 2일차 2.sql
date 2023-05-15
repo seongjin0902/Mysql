@@ -62,10 +62,29 @@ having avg(height)>=175;
 select num,groupname,sum(price*amount) from buytbl
 group by groupname,num with rollup;
 
+select userid,addr,avg(height) from usertbl
+group by addr,userid
+with rollup;
 
+select groupname,sum(price*amount) from buytbl
+group by groupname with rollup;
 
+-- 문제
 
-
-
-
-
+-- 1
+select userid,prodname,sum(price*amount) from buytbl
+group by prodname,userid;
+-- 2
+select userid,prodname,sum(price*amount) from buytbl
+group by prodname,userid having sum(price*amount)>=1000;
+-- 3
+select distinct userid, prodname,price from buytbl
+where price=(select max(price) from buytbl) or
+price=(select min(price) from buytbl);
+-- 4
+select * from buytbl where groupname is not null;
+-- 5
+select prodname,sum(price*amount) as '총합' from buytbl
+group by prodname with rollup;
+select num,prodname,sum(price*amount) as '총합' from buytbl
+group by prodname,num with rollup;
