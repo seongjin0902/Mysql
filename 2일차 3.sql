@@ -28,6 +28,7 @@ delete from tbl_test;
 
 -- auto_increment 초기화
 alter table tbl_test auto_increment=0;
+commit;
 insert into tbl_test(id,name,addr) values(null,'홍길동','대구');
 select * from tbl_test;
 
