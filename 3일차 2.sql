@@ -82,3 +82,9 @@ create table test_06
     on delete cascade
 );
 show index from test_06;
+
+
+
+
+
+
