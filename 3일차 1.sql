@@ -206,3 +206,6 @@ desc tbl_test09;
 
 -- default 삭제
 alter table tbl_test09 alter column age drop default;
+
+
+
