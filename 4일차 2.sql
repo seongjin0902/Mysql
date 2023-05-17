@@ -32,14 +32,19 @@ select * from view_user_buytbl;
 
 select * from view_user_buytbl where totalpay>=100;
 
--- 문제
-select *
-from employees
-inner join 
-
-
-
-
+-- 문제 inner 3개 이상
+use classicmodels;
+create or replace view view_test
+as
+select C.customernumber
+from customers C
+inner join employees E
+on E.employeeNumber=C.salesRepEmployeeNumber
+inner join payments P
+on C.customerNumber=P.customerNumber
+inner join offices O
+on E.officeCode=O.officeCode;
+select * from view_test;
 
 
 
