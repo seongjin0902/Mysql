@@ -230,4 +230,115 @@ select * from tbl_googoodan;
 -- 오름차순 구구단 or 내림차순 구구단 
 
 
+-- ------------------------------------
+-- 프로시저 반환값 지정
+
+use shopdb;
+select * from usertbl;
+
+
+select * from usertbl where height=174;
+delimiter $$
+create procedure proc_output_test(in param int, out returnval char(100))
+begin
+	select userid into returnval from usertbl where height=param;
+end $$
+delimiter ;
+
+set @rvalue = '';
+call proc_output_test(174,@rvalue);
+select @rvalue;
+
+
+
+delimiter $$
+create procedure proc_getmaxvalue(in col char(100), out maxval char(100))
+begin
+    select
+    case col 
+		when 'amount' then max(amount)
+		when 'price' then max(price)
+		when 'userid' then max(userid)
+	end into maxval
+	from buytbl;
+end $$
+delimiter ;
+
+set @maxv='';
+call proc_getmaxvalue('amount',@maxv);
+select @maxv;
+call proc_getmaxvalue('price',@maxv);
+select @maxv;
+call proc_getmaxvalue('userid',@maxv);
+select @maxv;
+
+-- usertbl에서 특정 열 이름을 in으로 받아 min과 avg를 out하는 프로시저를 만드세요alter
+ delimiter $$
+create procedure proc_getminvalue(in col char(100), out minval char(100), out avrval char(100))
+begin
+    select
+    case col 
+		when 'userid' then min(userid)
+		when 'birthyear' then min(birthyear)
+		when 'height' then min(height)
+	end into minval
+	from usertbl;
+	select
+    case col 
+		when 'userid' then avg(userid)
+		when 'birthyear' then avg(birthyear)
+		when 'height' then avg(height)
+	end into avrval
+	from usertbl;
+end $$
+delimiter ;
+
+set @minv='';
+set @avgv='';
+call proc_getminvalue('birthyear',@minv,@avgv);
+select @minv;
+select @avgv;
+call proc_getminvalue('height',@minv,@avgv);
+select @minv;
+select @avgv;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
  
